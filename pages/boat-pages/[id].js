@@ -3,10 +3,11 @@ import DataSection from "../../components/DataSection";
 import {useRouter} from 'next/router'
 import { supabase } from '../api/supabaseClient';
 
-const Boats = ({boat_pages}) => {
+const Boats = ({ boat}) => {
     // destructure props
     // const {propName} = props
-
+    boat = (boat?.[0])
+    // boat = boat[0]
     // State Variables
     // const [variableName, setVariableName] = useState(null)
 
@@ -14,18 +15,21 @@ const Boats = ({boat_pages}) => {
     return(
         <>
             <h1>Hello I am boat</h1>
+            <h1>{boat.boat_name}</h1>
             <DataSection /> 
         </>
     )
 }
 
 export async function getStaticProps(context) {
+    console.log("CONTEXT", context)
     const res = await supabase
         .from('Boats')
         .select()
+        .match({boat_name: context.params.id})
     console.log(res.data)
-    const boat_pages = await res.data
-    return { props: { boat_pages }, }
+    const boat = res.data
+    return { props: { boat }, }
 }
 
 export async function getStaticPaths() {

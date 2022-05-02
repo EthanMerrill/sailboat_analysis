@@ -7,32 +7,42 @@ const Boats = ({ boat}) => {
     // destructure props
     // const {propName} = props
     boat = (boat?.[0])
+    console.log(boat)
     // boat = boat[0]
     // State Variables
     // const [variableName, setVariableName] = useState(null)
-
     // JSX return
     return(
         <>
-            <h1>Hello I am boat</h1>
-            <h1>{boat.boat_name}</h1>
-            <DataSection /> 
+            <h1>{boat?.boat_name}</h1>
+            <DataSection 
+            sectionTitle = "my first data block" 
+            sectionSubtitle="subtitle about the data here"
+            tableData={boat}
+            /> 
+            <DataSection
+                sectionTitle="Performance"
+                sectionSubtitle="subtitle about the data here"
+                tableData={boat}
+            /> 
         </>
     )
 }
 
 export async function getStaticProps(context) {
-    console.log("CONTEXT", context)
     const res = await supabase
         .from('Boats')
         .select()
-        .match({boat_name: context.params.id})
-    console.log(res.data)
+        .match({"Boat Name": context.params.id})
     const boat = res.data
     return { props: { boat }, }
 }
 
 export async function getStaticPaths() {
+    const res = await supabase
+        .from('Boats')
+        .select()
+    console.log(res.data)
     return {
         paths: [
             { params: { id: "STRING", message: "HELLO!" } }

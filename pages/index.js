@@ -17,7 +17,7 @@ export default function Home({ Boats }) {
       <main className={styles.main}>
         <h1 className={styles.title}>All Boats</h1>
         {console.log(Boats)}
-        {Boats.map(boat_page => (
+        {Boats?.map(boat_page => (
           <Link key={boat_page.id} href={"/boat-pages/"+boat_page["Boat Name"]}>
             <a className={styles.link}>
               <h3>{boat_page["Boat Name"]}</h3>

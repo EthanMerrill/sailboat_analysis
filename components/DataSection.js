@@ -19,23 +19,21 @@ const DataSection = (props) => {
         <>
             <section className="data-section">
                 <h2 className='data-section-title'>{sectionTitle}</h2>
-                <h4 className="data-section-subtitle">{sectionSubtitle}</h4>
+                {/* <h4 className="data-section-subtitle">{sectionSubtitle}</h4> */}
                 <div className='table-container'>
                     {tableData && Object?.keys(tableData).map((title, value) => {
                         return(
-                            <>
-                                <hr />
+                         
                         <div key = {value} className="table-row">
                             <div className="table-cell">
-                               <p>{title}</p>
+                               <p className="data-title">{title}</p>
                             </div>
                             <div className="table-cell">
                                     <p>{tableData[title]}</p>
                             </div>
                         
                         </div>
-                                
-                            </>
+                          
                         )
                 })}
 

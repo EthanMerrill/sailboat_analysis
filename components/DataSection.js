@@ -29,7 +29,7 @@ const DataSection = (props) => {
                                <p className="data-title">{title}</p>
                             </div>
                             <div className="table-cell">
-                                    <p>{tableData[title]}</p>
+                                    <p className="data-number">{tableData[title]}</p>
                             </div>
                         
                         </div>

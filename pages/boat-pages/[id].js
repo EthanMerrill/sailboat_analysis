@@ -3,6 +3,7 @@ import DataSection from "../../components/DataSection";
 import HeaderSection from "../../components/HeaderSection";
 import PolarsSection from "../../components/PolarsSection";
 import TimelineSection from "../../components/TimelineSection";
+import BlurImage from "../../components/BlurImage";
 import { useRouter } from 'next/router'
 import { supabase } from '../api/supabaseClient';
 
@@ -10,6 +11,7 @@ const Boats = ({ boat }) => {
     // destructure props
     // const {propName} = props
     boat = (boat?.[0])
+    console.log(boat)
     // boat = boat[0]
     // State Variables
     // const [variableName, setVariableName] = useState(null)
@@ -23,7 +25,7 @@ const Boats = ({ boat }) => {
     function statsFilter(boat, stats) {
         let filteredStats = {}
         stats.forEach(stat => {
-            filteredStats[stat] = boat[stat]
+            filteredStats[stat] = boat?.[stat]
         })
         return filteredStats
     }
@@ -37,21 +39,21 @@ const Boats = ({ boat }) => {
 
     
     // Use the JS library to create a bucket.
-    async function getBucket() {
-        // const bucket = await supabase.bucket('boat-photos')
-        const { data, error } = await supabase.storage.from('boat-photos').download('public/Catalina30.png')
-        const {d, e} = await supabase.storage.from('boat-photos').list("*")
-        console.log(d, e)
-        console.log(data, error)
-        console.log("TELLO")
-    }
-    getBucket()
-
+    // async function getBucket() {
+    //     // const bucket = await supabase.bucket('boat-photos')
+    //     const { data, error } = await supabase.storage.from('boat-photos').download('public/Catalina30.png')
+    //     const {d, e} = await supabase.storage.from('boat-photos').list("*")
+    //     console.log(d, e)
+    //     console.log(data, error)
+    //     console.log("TELLO")
+    // }
+    // getBucket()
+    const image = { "href": boat?.img_href, "alt": boat?.boat_name, "src": "https://app.supabase.com/project/krkivjmbngmhokkhzxdu/storage/buckets/boat-photos" }
 // JSX return
 return (
     <>
         <h1>{boat?.boat_name}</h1>
-        
+        < BlurImage image= {image}/>
         <DataSection
             sectionTitle="Quick Stats"
             tableData={quickstats_data}
